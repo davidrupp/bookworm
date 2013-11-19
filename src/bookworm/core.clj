@@ -1,11 +1,14 @@
 (ns bookworm.core)
 
-(defn books [& fltr]
-  (let [book-dir "/Users/Thoughtworker/Dropbox/Books"]
-    (->> book-dir
-         clojure.java.io/file
-         file-seq
-         (filter #(.isFile %))
-         (filter #(re-find #"^.*\.(pdf|PDF)$" (.getName %)))
-         (map (fn [file] [(.getPath file) (.getName file)]))
-         (into {}))))
+(defn books 
+  ([] (books ""))
+  ([fltr]
+      (let [book-dir "/Users/Thoughtworker/Dropbox/Books"
+            book-regex (re-pattern (str "(?i)^.*" (str fltr) ".*\\.(pdf|PDF)$"))]
+        (->> book-dir
+             clojure.java.io/file
+             file-seq
+             (filter #(.isFile %))
+             (filter #(re-find book-regex (.getName %)))
+             (map (fn [file] [(.getPath file) (.getName file)]))
+             (into {})))))
