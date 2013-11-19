@@ -10,5 +10,5 @@
              file-seq
              (filter #(.isFile %))
              (filter #(re-find book-regex (.getName %)))
-             (map (fn [file] [(.getPath file) (.getName file)]))
+             (map (juxt #(.getPath %) #(.getName %)))
              (into {})))))
