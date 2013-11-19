@@ -12,3 +12,7 @@
              (filter #(re-find book-regex (.getName %)))
              (map (juxt #(.getPath %) #(.getName %)))
              (into {})))))
+
+(defn print-books
+  ([] (print-books ""))
+  ([fltr] (clojure.pprint/pprint (sort (keys (books (str fltr)))))))
