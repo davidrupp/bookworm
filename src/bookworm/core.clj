@@ -13,6 +13,6 @@
              (map (juxt #(.getPath %) #(.getName %)))
              (into {})))))
 
-(defn print-books
-  ([] (print-books ""))
+(defn find-books
+  ([] (find-books ""))
   ([fltr] (clojure.pprint/pprint (sort (keys (books (str fltr)))))))
