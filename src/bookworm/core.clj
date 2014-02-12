@@ -3,7 +3,8 @@
 (defn books 
   ([] (books ""))
   ([fltr]
-      (let [book-dir "/Users/Thoughtworker/Dropbox/Books"
+      (let [home-dir (System/getenv "HOME")
+            book-dir (str home-dir "/Dropbox/Books")
             book-regex (re-pattern (str "(?i)^.*" (str fltr) ".*\\.pdf$"))]
         (->> book-dir
              clojure.java.io/file
